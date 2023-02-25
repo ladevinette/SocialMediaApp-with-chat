@@ -12,6 +12,8 @@ import SignUpWithFacebook from "../FacebookSignUp";
 import Router, { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import * as styles from "./Login.styles";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { HomePage } from "../HomePage";
 
 type Inputs = {
   email: string;
@@ -22,6 +24,7 @@ export function Login() {
   const router = useRouter();
   const auth = getAuth();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [user, loading, error] = useAuthState(auth);
   const {
     register,
     handleSubmit,
@@ -122,15 +125,7 @@ export function Login() {
 
         <span css={styles.forgotPasswordSpan}>
           <Link href="/forgot-password">
-            <span
-              css={styles.forgotPasswordText}
-              className={css`
-                color: rgba(45, 85, 255);
-                font-weight: 700;
-              `}
-            >
-              Forgot Password?
-            </span>
+            <span css={styles.forgotPasswordText}>Forgot Password?</span>
           </Link>
         </span>
       </div>

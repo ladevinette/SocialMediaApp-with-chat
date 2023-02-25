@@ -5,7 +5,7 @@ export const container = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background: linear-gradient(150deg, #d9dbe2, #808aac 100%, #282d39 0);
 `;
 
 export const containerWrapper = css`
@@ -33,14 +33,18 @@ export const containerWrapper = css`
 export const loginContainer = css`
   display: flex;
   flex-direction: column;
-  border: 2px solid rgba(45, 85, 255);
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  padding: 7%;
+  background-color: #4a5162;
+  border-radius: 24px;
+  box-shadow: 0 2px 15px rgb(0 0 0 / 68%);
 `;
 
 export const header = css`
-  color: black;
+  color: white;
 `;
 
 export const inputsContainer = css`
@@ -58,10 +62,15 @@ export const inputsWrapper = css`
 
 export const emailEdit = css`
   color: black;
-  border: 2px solid rgba(45, 85, 255);
+  border: none;
+  border-bottom: 2px solid #726dfe;
+  outline: none;
   height: 50px;
   width: 90%;
-  background-color: rgb(120, 120, 120, 0.2);
+  background-color: transparent;
+  padding: 2%;
+  color: white;
+  font-size: 16px;
 `;
 
 export const passwordInputWrapper = css`
@@ -73,11 +82,15 @@ export const passwordInputWrapper = css`
 
 export const editPasswordInput = css`
   color: black;
-  position: relative;
-  border: 2px solid rgba(45, 85, 255);
-  background-color: rgb(120, 120, 120, 0.2);
+  border: none;
+  border-bottom: 2px solid #726dfe;
+  outline: none;
   height: 50px;
   width: 90%;
+  background-color: transparent;
+  padding: 2%;
+  color: white;
+  font-size: 16px;
 `;
 
 export const visibilityIcon = css`
@@ -118,16 +131,22 @@ export const logginButtonContainer = css`
 `;
 
 export const editLogginButton = css`
-  background-color: rgba(45, 85, 255);
+  background-color: #726dfe;
   width: 90%;
-  padding: 4%;
+  padding: 3%;
+  font-weight: 700;
+  font-size: 15px;
 `;
 
 export const bottomContainer = css`
   display: flex;
-  border: 2px solid rgba(45, 85, 255);
   justify-content: center;
   align-items: center;
+  padding: 3%;
+  background-color: #4a5162;
+  border-radius: 24px;
+  box-shadow: 0 2px 15px rgb(0 0 0 / 68%);
+  color: white;
 `;
 
 export const bottomWrapper = css`
@@ -138,7 +157,6 @@ export const bottomWrapper = css`
 `;
 
 export const bottomTextDiv = css`
-  color: black;
   text-align: center;
 `;
 
@@ -152,9 +170,9 @@ export const createProfileDiv = css`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: rgba(45, 85, 255);
   width: 100%;
   font-weight: 700;
+  color: #726dfe;
 `;
 
 export const arrayDiv = css`
@@ -162,9 +180,9 @@ export const arrayDiv = css`
   justify-content: center;
   margin-top: 5px;
   width: 30px;
-  background-color: rgba(45, 85, 255);
   border-radius: 50%;
   padding: 1%;
+  background-color: #726dfe;
 `;
 
 export const editArrayImg = css`
@@ -177,6 +195,7 @@ export const forgotPasswordSpan = css`
 `;
 
 export const forgotPasswordText = css`
-  color: rgba(45, 85, 255);
+  color: #726dfe;
+  font-size: 20px;
   font-weight: 700;
 `;

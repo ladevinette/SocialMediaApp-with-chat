@@ -8,6 +8,7 @@ import { UserInfo } from "../../components/UserInfo/UserInfo";
 import { UserPosts } from "../../components/UserPosts/UserPosts";
 import { getUserPosts } from "../../features/posts/postSlice";
 import { getUserProfile } from "../../features/users/usersSlice";
+import { useAuthStatus } from "../../hooks/useAuthStatus";
 import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import * as styles from "./profile.style";
 
@@ -29,7 +30,14 @@ function ProfilePage() {
   //   if (!user) {
   //     router.push("/login");
   //   }
-  // }, [user]);
+  // }, [user, router]);
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/login");
+  //     return;
+  //   }
+  // }, [router, user]);
 
   useEffect(() => {
     if (userId) {
