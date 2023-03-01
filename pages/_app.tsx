@@ -6,6 +6,7 @@ import Header from "../components//Header/Header";
 import Head from "next/head";
 import ChatContextProvider from "../context/ChatContext";
 import { ToastContainer } from "react-toastify";
+import { IoProvider } from 'socket.io-react-hook';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,11 +15,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Final Project</title>
       </Head>
       <Provider store={store}>
-        <ChatContextProvider>
-          <Header />
-          <Component {...pageProps} />
-          <ToastContainer />
-        </ChatContextProvider>
+        <IoProvider>
+          <ChatContextProvider>
+            <Header />
+            <Component {...pageProps} />
+            <ToastContainer />
+          </ChatContextProvider>
+        </IoProvider>
       </Provider>
     </>
   );

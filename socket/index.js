@@ -24,6 +24,16 @@ const getUser = (username) => {
 io.on("connection", (socket) => {
   io.emit("firstEvent", "Hello this is a test!");
 
+  socket.on('hi', msg => console.log(msg));
+
+  let timer;
+  socket.on('foo', msg => console.log('foo', { msg }));
+    let i = 0;
+    (function tick() {{
+      socket.emit('bar', i+=1);
+      timer = setTimeout(tick, 1000);
+    }})();
+
   socket.on("newUser", (username) => {
     addNewUser(username, socket.id);
   });
@@ -38,6 +48,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     removeUser(socket.id);
+    clearTimeout(timer);
   });
 });
 
