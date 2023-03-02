@@ -32,7 +32,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { getUsers } from "../../../features/users/usersSlice";
-import io, { Socket } from "socket.io-client";
+import { useChatSocket } from "../../../hooks/useChatSocket";
 
 // type notification = {
 //   senderName: string;
@@ -48,17 +48,32 @@ const ChatInput = () => {
   const [messageImg, setMessageImg] = useState("");
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
-  const [socket, setSocket] = useState<any | null>(null);
   // const [notification, setNotification] = useState<notification[]>([]);
+  const { socket, connected, error: socketError }  = useChatSocket();
 
-  // useEffect(() => {
-  //   const socket = io("http://localhost:5000");
-  //   console.log(
-  //     socket.on("firstEvent", (msg) => {
-  //       console.log(msg);
-  //     })
-  //   );
-  // }, []);
+  console.log({ connected });
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('connected');
+    });
+    socket.on('disconnect', () => {
+      console.log('disconnected');
+    });
+
+    socket.on('bar', msg => console.log('bar', { msg }));
+    let timer;
+    let i = 0;
+    (function tick() {{
+      socket.emit('foo', i+=1);
+      timer = setTimeout(tick, 1000);
+    }})();
+
+    return () => {
+      clearTimeout(timer); // stop timer
+    }
+
+  }, [socket]);
 
   // useEffect(() => {
   //   if (user) {
