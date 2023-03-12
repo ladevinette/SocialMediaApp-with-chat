@@ -6,6 +6,7 @@ export const container = css`
   width: 100vw;
   height: calc(100vh - 70px);
   background-color: rgb(203, 195, 227);
+  background-color: red;
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
