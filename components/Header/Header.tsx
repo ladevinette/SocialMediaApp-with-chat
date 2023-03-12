@@ -63,7 +63,7 @@ function Header() {
   return (
     <div css={styles.container}>
       <div css={styles.containerWrapper}>
-        <Link href={"/homepage"} css={styles.leftWrapper}>
+        <Link href={"/homepage"} css={styles.leftWrapper} onClick={closeModal}>
           <h1>Social Media 🦄</h1>
         </Link>
         <div css={styles.centerWrapper}>
