@@ -24,10 +24,8 @@ const getUser = (newUser) => {
 io.on("connection", (socket) => {
   io.emit("firstEvent", "Hello this is a test!");
 
-  socket.on("hi", (msg) => console.log(msg));
-
-  socket.on("newUser", (newUser) => {
-    addNewUser(newUser, socket.id);
+  socket.on("newUser", (username) => {
+    addNewUser(username, socket.id);
   });
 
   socket.on("sendNotification", ({ senderName, reciverId }) => {
