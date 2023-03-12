@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Head from "next/head";
+import React from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { getAuth } from "firebase/auth";
-import { css } from "@emotion/css";
 import { useAuthStatus } from "../../hooks/useAuthStatus";
-import { Login } from "../Login/index";
 import { useAuthState } from "react-firebase-hooks/auth";
 import * as styles from "./MainPage.styles";
 import Image from "next/image";
-import smartphoneImage from "../../assets/pageImages/933-9331109_like-comment-share-check-in-reviews-mentions-and.png";
-import content from "../../assets/pageImages/content.png";
 import mainImage from "../../assets/pageImages/All the data-rafiki.png";
 import smallImage from "../../assets/pageImages/Software code testing-amico.png";
-import Link from "next/link";
 
 export function MainPage() {
   const auth = getAuth();
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const router = useRouter();
-  const { loggedIn, checkingStatus } = useAuthStatus();
 
   const handleClick = () => {
     user ? router.push("/homepage") : router.push("/login");

@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-import { css } from "@emotion/css";
 import { useForm, SubmitHandler } from "react-hook-form";
-import OAuth from "../OAuth";
-import visibilityIcon from "../../assets/svg/visibilityIcon.svg";
+import { useAuthState } from "react-firebase-hooks/auth";
 import Image from "next/image";
 import Link from "next/link";
-import ArrowRightIcon from "../../assets/svg/keyboardArrowRightIcon.svg";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import SignUpWithTwitter from "../TwitterSignUp";
-import SignUpWithFacebook from "../FacebookSignUp";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import * as styles from "./Login.styles";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { HomePage } from "../HomePage";
+import "react-toastify/dist/ReactToastify.css";
+import visibilityIcon from "../../assets/svg/visibilityIcon.svg";
+import ArrowRightIcon from "../../assets/svg/keyboardArrowRightIcon.svg";
 
 type Inputs = {
   email: string;
@@ -24,7 +20,6 @@ export function Login() {
   const router = useRouter();
   const auth = getAuth();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [user, loading, error] = useAuthState(auth);
   const {
     register,
     handleSubmit,
@@ -34,18 +29,18 @@ export function Login() {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { email, password } = data;
     try {
-      console.log(email, password);
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
       if (userCredential.user) {
-        router.push("/");
+        router.push("/homepage");
         toast.success("Succesfully logged in!");
       }
     } catch (error: any) {
       toast.error("bad user credentilas");
+      return;
     }
   };
 
@@ -73,8 +68,6 @@ export function Login() {
                   {...register("password", { required: true })}
                 />
 
-                {errors.email && <span>This field is required</span>}
-
                 <Image
                   css={styles.visibilityIcon}
                   src={visibilityIcon}
@@ -82,8 +75,6 @@ export function Login() {
                   onClick={() => setShowPassword((prev) => !prev)}
                 />
               </div>
-
-              {errors.password && <span>This field is required</span>}
             </div>
 
             <div css={styles.logginButtonContainer}>
@@ -97,13 +88,7 @@ export function Login() {
         <div css={styles.bottomContainer}>
           <div css={styles.bottomWrapper}>
             <div css={styles.bottomTextDiv}>
-              <span
-                css={styles.bottomText}
-                className={css`
-                  font-size: 20px;
-                  font-weight: 500;
-                `}
-              >
+              <span css={styles.bottomText}>
                 You dont have an account? <br /> Lets create it! And join to our
                 community
               </span>

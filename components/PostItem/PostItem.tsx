@@ -1,26 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { style } from "@mui/system";
-import {
-  arrayUnion,
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Modal from "react-modal";
 import {
   createNewComment,
   deletePost,
   getAllPostComments,
   reset,
 } from "../../features/posts/postSlice";
-import { db } from "../../firebase-config";
 import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import {
   Comment,
@@ -31,13 +17,12 @@ import {
 import * as styles from "./PostItem.style";
 import CommentItem from "../CommentItem/CommentItem";
 import deleteIcon from "../../assets/svg/delete-svgrepo-com.svg";
-import commentsIcon from "../../assets/svg/comments-svgrepo-com (1).svg";
+import "react-toastify/dist/ReactToastify.css";
+import Modal from "react-modal";
 
 type Props = {
   post: Post;
 };
-
-// tutaj pobieramy dane authora z reduxa poniewaz posiadamy takie info jak author ktore jest id uzytkownika ktory stworzył post
 
 export function PostItem({ post }: Props) {
   const { loggedUser } = useTypedSelector((state) => state.users);
@@ -65,16 +50,19 @@ export function PostItem({ post }: Props) {
     const addComment = (e: React.FormEvent<EventTarget>) => {
       e.preventDefault();
       dispatch(createNewComment(commentData));
+      console.log("siema");
+      setComment("");
     };
 
     const openModal = () => {
+      console.log("modal is open");
       setModalIsOpen(true);
       dispatch(getAllPostComments(post.id));
     };
 
     const closeModal = () => {
+      console.log("modal is closed");
       setModalIsOpen(false);
-      // reset();
     };
 
     const handleDeletePost = (postId: string) => {
@@ -94,8 +82,8 @@ export function PostItem({ post }: Props) {
               >
                 <Image
                   css={styles.editProfileImg}
-                  width={50}
-                  height={50}
+                  width={100}
+                  height={100}
                   src={post.author.profileImg}
                   alt="profilePhoto"
                 />
@@ -131,19 +119,16 @@ export function PostItem({ post }: Props) {
             alt="postImage"
             width={100}
             height={100}
+            priority={false}
           />
         </div>
         <div css={styles.descContainer}>
           <p css={styles.postDescription}>{post.description}</p>
-          <button css={styles.editCommentButton} onClick={openModal}>
-            Show comments
-            <Image
-              width={20}
-              height={20}
-              src={commentsIcon}
-              alt="profilePhoto"
-            />
-          </button>
+          <div css={styles.commentButtonDiv}>
+            <button css={styles.editCommentButton} onClick={openModal}>
+              Show comments
+            </button>
+          </div>
         </div>
 
         <Modal
@@ -157,39 +142,7 @@ export function PostItem({ post }: Props) {
               X
             </button>
           </div>
-          {/* <div css={styles.postContainer}>
-            <div css={styles.container}>
-              <Link css={styles.link} href={`/profile/${post.author.authorId}`}>
-                <div css={styles.authorInfo}>
-                  <div css={styles.authorLeftSide}>
-                    <Image
-                      width={50}
-                      height={50}
-                      src={post.author.profileImg}
-                      alt="profilePhoto"
-                    />
-                  </div>
 
-                  <div css={styles.authorRightSide}>
-                    <p css={styles.nameAndSurname}>
-                      {post.author.name} {post.author.surname}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-
-              <div css={styles.photoContainer}>
-                <Image
-                  css={styles.editPostPhoto}
-                  src={post.photo}
-                  alt="postImage"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div css={styles.descContainer}>{post.description}</div>
-            </div>
-          </div> */}
           <div css={styles.commentsSection}>
             <form css={styles.editForm} onSubmit={addComment}>
               <div css={styles.addCommentContainer}>
@@ -204,7 +157,12 @@ export function PostItem({ post }: Props) {
                     />
                   </div>
                   <div css={styles.editInputContainer}>
-                    <input css={styles.editInput} onChange={onChange} />
+                    <input
+                      css={styles.editInput}
+                      onChange={onChange}
+                      placeholder="Write your comment....."
+                      value={comment}
+                    />
                     <button css={styles.addCommentButton} type="submit">
                       +
                     </button>
@@ -214,7 +172,11 @@ export function PostItem({ post }: Props) {
             </form>
             {comments &&
               comments.map((element: Comment, index) => (
-                <CommentItem key={index} comment={element} post={post} />
+                <CommentItem
+                  key={element.commentId}
+                  comment={element}
+                  post={post}
+                />
               ))}
 
             {comments === null && <h3>This post hasnt got any comments</h3>}
@@ -226,5 +188,3 @@ export function PostItem({ post }: Props) {
     return <div>user is not logged in</div>;
   }
 }
-
-//zrobic state do przechowywania komentarzy i w dispatchu wysylac tresc komenta

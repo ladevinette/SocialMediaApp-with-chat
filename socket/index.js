@@ -8,37 +8,44 @@ const io = new Server({
 
 let onlineUsers = [];
 
-const addNewUser = (username, socketId) => {
-  !onlineUsers.some((user) => user.username === username) &&
-    onlineUsers.push({ username, socketId });
+const addNewUser = (newUser, socketId) => {
+  !onlineUsers.some((data) => data.newUser.id === newUser.id) &&
+    onlineUsers.push({ newUser, socketId });
 };
 
 const removeUser = (socketId) => {
   onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
 };
 
-const getUser = (username) => {
-  return onlineUsers.find((user) => user.username === username);
+const getUser = (newUser) => {
+  return onlineUsers.find((user) => user.newUser.id === newUser);
 };
 
 io.on("connection", (socket) => {
   io.emit("firstEvent", "Hello this is a test!");
 
-  socket.on("newUser", (username) => {
-    addNewUser(username, socket.id);
+  socket.on("hi", (msg) => console.log(msg));
+
+  socket.on("newUser", (newUser) => {
+    addNewUser(newUser, socket.id);
   });
 
-  socket.on("sendNotification", ({ senderName, reciverName }) => {
-    const reciver = getUser(reciverName);
-    io.to(reciver.socketId).emit("getNotification", {
-      senderName,
-      type,
-    });
+  socket.on("sendNotification", ({ senderName, reciverId }) => {
+    const reciver = getUser(reciverId);
+    if (reciver) {
+      io.to(reciver.socketId).emit("getNotification", {
+        senderName,
+      });
+    } else {
+      console.log("uers is offline");
+    }
   });
 
   socket.on("disconnect", () => {
     removeUser(socket.id);
   });
+
+  console.log(onlineUsers);
 });
 
 io.listen(5000);

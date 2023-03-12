@@ -88,9 +88,9 @@ export function UserInfo({ user }: Props) {
         </div>
 
         <div css={styles.hobbiesContainer}>
-          <div css={styles.photoContainer}>
+          <div css={styles.photoContainerHobby}>
             <Image
-              css={styles.editPicture}
+              css={styles.editPictureHobby}
               src={hobbiesIcon}
               alt="profileImage"
             />

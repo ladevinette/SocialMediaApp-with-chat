@@ -1,26 +1,13 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {
-  setDoc,
-  doc,
-  serverTimestamp,
-  collection,
-  query,
-  getDocs,
-} from "firebase/firestore";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../../firebase-config";
-import { css } from "@emotion/css";
 import { useForm, SubmitHandler } from "react-hook-form";
-import OAuth from "../../components/OAuth";
-import visibilityIcon from "../../assets/svg/visibilityIcon.svg";
 import Image from "next/image";
 import Link from "next/link";
-import ArrowRightIcon from "../assets/svg/keyboardArrowRightIcon.svg";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import SignUpWithTwitter from "../../components/TwitterSignUp";
-import SignUpWithFacebook from "../../components/FacebookSignUp";
+import visibilityIcon from "../../assets/svg/visibilityIcon.svg";
 import * as styles from "./SignUp.styles";
 
 type Inputs = {
@@ -43,8 +30,6 @@ export function Signup() {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { name, surname, email, password, birthdate } = data;
-
-    //pobieramy wszytkie nicknames z firebase, jezeli nikt nie ma takiego samego jak nasz to wtedy return nichname, jezli ktos ma to react toastify you nickname is in use
 
     try {
       console.log(name, surname, email, password, birthdate);
@@ -83,7 +68,7 @@ export function Signup() {
       await setDoc(doc(db, "userChats", user.uid), {});
 
       toast.success("Succesfully Sign up!");
-      router.push("/");
+      router.push("/homepage");
     } catch (error: any) {
       toast.error(error);
     }

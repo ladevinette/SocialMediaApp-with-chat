@@ -1,16 +1,15 @@
 import { css } from "@emotion/react";
-import bg from "../../assets/pageImages/6025273.jpg";
 
 export const container = css`
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 70px);
   background-color: white;
-  overflow: hidden;
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
+    height: calc(100vh - 70px);
     flex-direction: column;
     justify-content: center;
   }
@@ -27,11 +26,12 @@ export const leftSideContainer = css`
   justify-content: center;
   align-items: center;
   width: 50%;
+  height: 90%;
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
     width: 100%;
-    height: 90%;
+    height: 100%;
   }
 
   //xs-size
@@ -55,7 +55,7 @@ export const leftSideWrapper = css`
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
-    height: 80%;
+    height: 90%;
   }
 
   //xs-size
@@ -75,7 +75,8 @@ export const leftCenterPhotoContainer = css`
 
   //lg-size
   @media (min-width: 1200px) and (max-width: 1536px) {
-    width: 80%;
+    width: 420px;
+    height: 420px;
   }
 
   //md-size
@@ -147,7 +148,6 @@ export const rightSideWrapper = css`
   display: flex;
   width: 90%;
   height: 85%;
-  margin-top: 5%;
 
   //md-size
   @media (min-width: 900px) and (max-width: 1200px) {
@@ -173,6 +173,11 @@ export const photoEdit = css`
 
 export const paragraphDiv = css`
   width: 70%;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const paragraph = css`
@@ -193,7 +198,7 @@ export const buttonEdit = css`
 
   @media (hover: hover) {
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.03);
     }
   }
 

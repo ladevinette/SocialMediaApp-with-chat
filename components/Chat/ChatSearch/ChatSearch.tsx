@@ -13,14 +13,15 @@ import {
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
 import { getUser } from "../../../features/users/usersSlice";
 import { db } from "../../../firebase-config";
+import useDebounce from "../../../hooks/useDebounce";
 import {
   useAppDispatch,
   useTypedSelector,
 } from "../../../hooks/useTypedSelector";
 import { InputChangeEventHandler, User } from "../../../typing";
-import { chat } from "../ChatComponent/ChatComponent.styles";
 import * as styles from "./ChatSearch.styles";
 
 export function ChatSearch() {
@@ -32,6 +33,7 @@ export function ChatSearch() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [err, setErr] = useState(false);
   const [user, loading, error] = useAuthState(auth);
+  const debouncedValue = useDebounce(username, 500);
 
   // useEffect(() => {
   //   dispatch(getUser());
@@ -43,12 +45,18 @@ export function ChatSearch() {
     }
   }, [dispatch, user]);
 
+  useEffect(() => {
+    if (debouncedValue) {
+      handleSearch(debouncedValue);
+    }
+  }, [debouncedValue]);
+
   const onChange: InputChangeEventHandler = (e) => {
     setUsername(e.target.value);
   };
 
-  const handleSearch = async () => {
-    const q = query(collection(db, "users"), where("name", "==", username));
+  const handleSearch = async (value: string) => {
+    const q = query(collection(db, "users"), where("name", "==", value));
 
     try {
       let usersArray: User[] = [];
@@ -72,8 +80,6 @@ export function ChatSearch() {
           hobbies: doc.data().hobbies,
         };
         usersArray.push(userData);
-        console.log(userData);
-        // setSearchedUser(userData);
       });
       setSearchedUser(usersArray);
     } catch (error) {
@@ -84,15 +90,11 @@ export function ChatSearch() {
 
   const onSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    handleSearch();
-    // dispatch(getUser());
+    handleSearch(username);
   };
 
   const handleSelect = async (element: User) => {
     if (loggedUser && element) {
-      // check wheter the group(chats colletion in firestore) exists, if not create
-      // const combinedId = [user.id, searchedUser.id].sort().join("");
-      // console.log("COMBINED Id:", combinedId);
       const combinedId =
         loggedUser.id > element.id
           ? loggedUser.id + element.id
@@ -131,11 +133,8 @@ export function ChatSearch() {
 
     setSearchedUser(null);
     setUsername("");
+    toast.success(`You have just added ${username} to your chats`);
   };
-
-  // const selectUser = (element: User) => {
-  //   setSelectedUser(element);
-  // };
 
   return (
     <div css={styles.search}>
@@ -144,27 +143,13 @@ export function ChatSearch() {
           <input
             css={styles.editInput}
             type="text"
-            placeholder="find a user"
+            placeholder="find a user by typing his name"
             onChange={onChange}
             value={username}
           />
         </form>
       </div>
       {err && <span>User not found</span>}
-      {/* {searchedUser && (
-        <div css={styles.userChat} onClick={handleSelect}>
-          <Image
-            css={styles.editImage}
-            src={searchedUser.profileImg}
-            alt="profpic"
-            width={100}
-            height={100}
-          />
-          <div>
-            <span>{searchedUser.name}</span>
-          </div>
-        </div>
-      )} */}
       {searchedUser &&
         searchedUser.map((element: User) => (
           <div key={element.id}>

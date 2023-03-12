@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-  height: 100vh;
+  height: calc(100vh - 70px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(150deg, #d9dbe2, #808aac 100%, #282d39 0);
+  background-color: rgb(203, 195, 227);
 `;
 
 export const containerWrapper = css`
@@ -15,18 +15,16 @@ export const containerWrapper = css`
   gap: 50px;
   margin: auto;
   padding: 3%;
-  width: 40%;
+  width: 700px;
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
-    background-color: yellow;
     width: 60%;
   }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
-    background-color: green;
-    width: 80%;
+    width: 90%;
   }
 `;
 
@@ -36,15 +34,19 @@ export const loginContainer = css`
   justify-content: center;
   align-items: center;
   width: 100%;
-
   padding: 7%;
-  background-color: #4a5162;
+  background-color: white;
   border-radius: 24px;
   box-shadow: 0 2px 15px rgb(0 0 0 / 68%);
 `;
 
 export const header = css`
-  color: white;
+  color: gray;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 23px;
+  }
 `;
 
 export const inputsContainer = css`
@@ -61,16 +63,26 @@ export const inputsWrapper = css`
 `;
 
 export const emailEdit = css`
-  color: black;
   border: none;
-  border-bottom: 2px solid #726dfe;
+  border-bottom: 2px solid rgb(207, 159, 255);
   outline: none;
   height: 50px;
   width: 90%;
   background-color: transparent;
   padding: 2%;
-  color: white;
+  color: black;
   font-size: 16px;
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const passwordInputWrapper = css`
@@ -83,14 +95,27 @@ export const passwordInputWrapper = css`
 export const editPasswordInput = css`
   color: black;
   border: none;
-  border-bottom: 2px solid #726dfe;
+  border-bottom: 2px solid rgb(207, 159, 255);
   outline: none;
   height: 50px;
   width: 90%;
   background-color: transparent;
   padding: 2%;
-  color: white;
+  color: black;
   font-size: 16px;
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 15px;
+    width: 100%;
+    font-weight: 500;
+  }
 `;
 
 export const visibilityIcon = css`
@@ -99,6 +124,7 @@ export const visibilityIcon = css`
   top: 10;
   right: 50px;
   height: 50px;
+  cursor: pointer;
 
   //lg-size
   @media (min-width: 1200px) and (max-width: 1536px) {
@@ -117,7 +143,7 @@ export const visibilityIcon = css`
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
-    right: 20px;
+    right: 0px;
   }
 `;
 
@@ -131,11 +157,21 @@ export const logginButtonContainer = css`
 `;
 
 export const editLogginButton = css`
-  background-color: #726dfe;
+  background-color: rgb(207, 159, 255);
   width: 90%;
   padding: 3%;
   font-weight: 700;
   font-size: 15px;
+  border: none;
+  border-radius: 25px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
 `;
 
 export const bottomContainer = css`
@@ -143,10 +179,10 @@ export const bottomContainer = css`
   justify-content: center;
   align-items: center;
   padding: 3%;
-  background-color: #4a5162;
+  background-color: white;
   border-radius: 24px;
   box-shadow: 0 2px 15px rgb(0 0 0 / 68%);
-  color: white;
+  color: gray;
 `;
 
 export const bottomWrapper = css`
@@ -163,6 +199,16 @@ export const bottomTextDiv = css`
 export const bottomText = css`
   font-size: 20px;
   font-weight: 500;
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    font-size: 16px;
+  }
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 15px;
+  }
 `;
 
 export const createProfileDiv = css`
@@ -172,7 +218,7 @@ export const createProfileDiv = css`
   align-items: center;
   width: 100%;
   font-weight: 700;
-  color: #726dfe;
+  color: rgb(207, 159, 255);
 `;
 
 export const arrayDiv = css`
@@ -182,7 +228,7 @@ export const arrayDiv = css`
   width: 30px;
   border-radius: 50%;
   padding: 1%;
-  background-color: #726dfe;
+  background-color: rgb(207, 159, 255);
 `;
 
 export const editArrayImg = css`
@@ -195,7 +241,7 @@ export const forgotPasswordSpan = css`
 `;
 
 export const forgotPasswordText = css`
-  color: #726dfe;
-  font-size: 20px;
+  color: rgb(207, 159, 255);
+  font-size: 23px;
   font-weight: 700;
 `;

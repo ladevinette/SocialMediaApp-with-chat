@@ -7,11 +7,9 @@ import {
   query,
   where,
   orderBy,
-  deleteDoc,
   getDocs,
   limit,
 } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { db } from "../../firebase-config";
 import { Post, User } from "../../typing";
 
@@ -129,7 +127,6 @@ const updateProfileData = async (data: User) => {
 
       //UPDATE POST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       const listingsRef = collection(db, "posts");
-      console.log(auth.currentUser.uid);
 
       // Create a query
       const q = query(
@@ -156,7 +153,6 @@ const updateProfileData = async (data: User) => {
         const { id, photo, description, timestamp, author } = postData;
         const { authorId, name, surname, profileImg } = postData.author;
         const userRef = doc(db, "posts", element.data().id);
-        console.log(id, description, "elo");
         updateDoc(userRef, {
           author: {
             authorId: auth.currentUser?.uid,

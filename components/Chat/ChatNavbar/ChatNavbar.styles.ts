@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 
 export const navbar = css`
   display: flex;
@@ -9,15 +8,34 @@ export const navbar = css`
   padding: 10px;
   justify-content: space-between;
   color: #ddddf7;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    justify-content: center;
+    width: 100%;
+  }
 `;
 
 export const logo = css`
   font-weight: bold;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const user = css`
   display: flex;
   gap: 10px;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+  }
 `;
 
 export const img = css`

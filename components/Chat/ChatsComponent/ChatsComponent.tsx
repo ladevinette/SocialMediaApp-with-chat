@@ -1,13 +1,12 @@
-import { getAuth } from "firebase/auth";
 import { doc, DocumentData, onSnapshot } from "firebase/firestore";
 import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../../context/ChatContext";
 import { db } from "../../../firebase-config";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
-import { User, userChats, userInfo } from "../../../typing";
-import * as styles from "./ChatsComponent.styles";
+import { userChats, userInfo } from "../../../typing";
 import { v4 as uuidv4 } from "uuid";
+import * as styles from "./ChatsComponent.styles";
 
 export function ChatsComponent() {
   const [chats, setChats] = useState<userChats[]>([]);
@@ -19,7 +18,6 @@ export function ChatsComponent() {
       const unsub = onSnapshot(
         doc(db, "userChats", loggedUser.id),
         (doc: DocumentData) => {
-          console.log("Current Data", doc.data());
           setChats(doc.data());
         }
       );
@@ -42,14 +40,17 @@ export function ChatsComponent() {
           key={uuidv4()}
           onClick={() => handleSelect(chat[1].userInfo)}
         >
-          <Image
-            css={styles.editImage}
-            src={chat[1].userInfo.profileImg}
-            alt="profpic"
-            width={100}
-            height={100}
-          />
-          <div>
+          <div css={styles.imageContainer}>
+            <Image
+              css={styles.editImage}
+              src={chat[1].userInfo.profileImg}
+              alt="profpic"
+              width={100}
+              height={100}
+            />
+          </div>
+
+          <div css={styles.infoContainer}>
             <span css={styles.editName}>
               {chat[1].userInfo.name} {chat[1].userInfo.surname}
             </span>

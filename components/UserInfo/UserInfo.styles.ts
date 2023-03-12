@@ -19,6 +19,16 @@ export const wrapper = css`
   width: 80%;
   height: 100%;
 
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    width: 100%;
+  }
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    width: 100%;
+  }
+
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     width: 90%;
@@ -28,8 +38,10 @@ export const wrapper = css`
 export const socialsContainer = css`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 80%;
-  height: 30%;
+  height: 35%;
   border-radius: 15px;
   background-color: rgb(207, 159, 255);
   padding: 1%;
@@ -38,17 +50,33 @@ export const socialsContainer = css`
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     width: 100%;
-    height: 40%;
+    height: 30%;
     padding: 0%;
   }
 `;
 
 export const photoContainer = css`
-  width: 40%;
-  height: 100%;
+  height: 180px;
+  width: 180px;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 export const editPicture = css`
+  width: 100%;
+  height: 100%;
+`;
+
+export const photoContainerHobby = css`
+  width: 150px;
+  height: 150px;
+`;
+
+export const editPictureHobby = css`
   width: 100%;
   height: 100%;
 `;
@@ -60,6 +88,12 @@ export const rightSocialContainer = css`
   align-items: center;
   justify-content: center;
   width: 60%;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    padding: 3%;
+    height: 100%;
+  }
 `;
 
 export const social = css`
@@ -69,11 +103,19 @@ export const social = css`
   width: 80%;
   height: 40px;
   border-radius: 30px;
+  padding: 2%;
+  align-items: center;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 100%;
+    padding: 1%;
+  }
 `;
 
 export const iconContainer = css`
-  padding: 3%;
-  width: 20%;
+  width: 30px;
+  height: 30px;
 `;
 
 export const editIcon = css`
@@ -89,19 +131,30 @@ export const editSocialName = css`
   justify-content: center;
   align-items: center;
   color: gray;
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    font-size: 15px;
+  }
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 12px;
+  }
 `;
 
 export const descriptionContainer = css`
   display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgb(207, 159, 255);
   width: 80%;
-  height: 20%;
+  height: 30%;
   border-radius: 15px;
 
+  //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     width: 100%;
-    height: 30%;
-    padding: 0%;
   }
 `;
 
@@ -111,6 +164,11 @@ export const rightDescription = css`
   align-items: center;
   justify-content: center;
   width: 60%;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    height: 100%;
+  }
 `;
 
 export const descriptionHeader = css`
@@ -119,6 +177,11 @@ export const descriptionHeader = css`
   padding: 2%;
   color: gray;
   font-weight: 700;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 17px;
+  }
 `;
 
 export const description = css`
@@ -127,13 +190,20 @@ export const description = css`
   font-size: 20px;
   font-weight: 600;
   color: white;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 14px;
+  }
 `;
 
 export const hobbiesContainer = css`
   display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgb(207, 159, 255);
   width: 80%;
-  height: 20%;
+  height: 25%;
   border-radius: 15px;
 
   @media (min-width: 0px) and (max-width: 600px) {

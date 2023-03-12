@@ -4,14 +4,17 @@ export const container = css`
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 70px);
   background-color: rgb(203, 195, 227);
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    justify-content: center;
+  }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
     margin: 0;
     padding: 0;
   }
@@ -21,12 +24,29 @@ export const leftDiv = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: gray; */
   width: 25%;
+
+  //xl-size
+  @media (min-width: 1536px) {
+    height: 100%;
+  }
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    width: 23%;
+    height: 86%;
+    margin-top: 10%;
+  }
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    display: none;
+  }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     width: 50%;
+    background-color: red;
   }
 `;
 
@@ -35,10 +55,17 @@ export const futuresContainer = css`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  margin-top: 7%;
+  gap: 20px;
   color: black;
   width: 60%;
   height: 90%;
-  /* background-color: white; */
+
+  //xl-size
+  @media (min-width: 1536px) {
+    height: calc(100% - 20px);
+    margin-top: 0%;
+  }
 
   //lg-size
   @media (min-width: 1200px) and (max-width: 1536px) {
@@ -47,20 +74,20 @@ export const futuresContainer = css`
 
   //md-size
   @media (min-width: 900px) and (max-width: 1200px) {
-    width: 90%;
+    width: 96%;
+    height: 90%;
+    margin-top: 0%;
   }
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
     width: 100%;
+    height: 70%;
   }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     display: none;
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
   }
 `;
 
@@ -73,6 +100,16 @@ export const futureTile = css`
   width: 100%;
   background-color: white;
   border-radius: 20px;
+
+  //xl-size
+  @media (min-width: 1536px) {
+    height: 350px;
+  }
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    height: 300px;
+  }
 `;
 
 export const tileButton = css`
@@ -80,9 +117,16 @@ export const tileButton = css`
   font-size: 14px;
   font-weight: 700;
   padding: 3% 7% 3% 7%;
-  /* padding: 3%; */
   border: none;
   border-radius: 30px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
 `;
 
 export const logOutButton = css`
@@ -94,7 +138,14 @@ export const logOutButton = css`
   color: white;
   background-color: rgb(207, 159, 255);
   border-radius: 30px;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
 `;
 
 export const colorGray = css`
@@ -102,6 +153,21 @@ export const colorGray = css`
   font-weight: 700;
   text-align: center;
   color: gray;
+
+  //xl-size
+  @media (min-width: 1536px) {
+    font-size: 14px;
+  }
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    font-size: 12px;
+  }
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    font-size: 12px;
+  }
 `;
 
 export const tilePhotoContainer = css`
@@ -118,15 +184,22 @@ export const containerWrapper = css`
   flex-direction: column;
   align-items: center;
   width: 50%;
-  overflow-y: scroll;
-  ::-webkit-scrollbar {
-    width: 1px;
-    background-color: green;
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    width: 60%;
+  }
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    width: 98%;
   }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 `;
 
@@ -134,11 +207,23 @@ export const divTop = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 1px;
+    background-color: transparent;
+  }
+
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    width: 100%;
+  }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
-    width: 80%;
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -147,8 +232,7 @@ export const addPostContainer = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80%;
-  /* background-color: rgba(159, 90, 253, 0.4); */
+  width: 90%;
   background-color: white;
   border: 2px solid rgb(207, 159, 255);
   border-radius: 25px;
@@ -158,25 +242,25 @@ export const addPostContainer = css`
   //lg-size
   @media (min-width: 1200px) and (max-width: 1536px) {
     width: 90%;
-    margin-top: 16%;
+    margin-top: 12%;
   }
 
   //md-size
   @media (min-width: 900px) and (max-width: 1200px) {
-    width: 100%;
-    margin-top: 20%;
+    width: 90%;
+    margin-top: 5%;
   }
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
-    width: 100%;
-    margin-top: 22%;
+    width: 90%;
+    margin-top: 12%;
   }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
-    width: 100%;
-    margin-top: 25%;
+    width: 80%;
+    margin: 5%;
   }
 `;
 
@@ -226,7 +310,14 @@ export const submitButton = css`
   padding: 1% 3% 1% 3%;
   font-weight: 700;
   font-size: 15px;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
 `;
 
 export const editForm = css`
@@ -278,6 +369,11 @@ export const textArea = css`
 
 export const bottomWrapper = css`
   margin-top: 1%;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const postContainer = css`
@@ -286,7 +382,6 @@ export const postContainer = css`
   align-items: center;
   flex-direction: column;
   color: black;
-  /* background-color: red; */
   width: 100%;
 `;
 
@@ -295,6 +390,17 @@ export const rightDiv = css`
   justify-content: center;
   align-items: center;
   width: 25%;
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    width: 20%;
+  }
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    width: 20%;
+    display: none;
+  }
 `;
 
 export const rightDivContentWrapper = css`
@@ -306,20 +412,21 @@ export const rightDivContentWrapper = css`
   color: gray;
   border-radius: 20px;
   width: 70%;
-  height: 85%;
+  height: 90%;
   background-color: white;
+  margin-top: 5%;
 
   //lg-size
   @media (min-width: 1200px) and (max-width: 1536px) {
-    width: 100%;
-    height: 90%;
+    width: 95%;
+    height: 95%;
     margin-top: 7%;
   }
 
   //md-size
   @media (min-width: 900px) and (max-width: 1200px) {
     margin-top: 10%;
-    width: 100%;
+    width: 94%;
     height: 90%;
   }
 
@@ -356,6 +463,12 @@ export const userContainer = css`
   width: 80%;
   height: 45px;
   background-color: rgb(207, 159, 255, 0.9);
+  transition: all 0.05s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
 
   //lg-size
   @media (min-width: 1200px) and (max-width: 1536px) {
@@ -369,7 +482,7 @@ export const userContainer = css`
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
-    width: 95%;
+    width: 98%;
   }
 
   //xs-size
@@ -383,13 +496,14 @@ export const userProf = css`
   padding: 2%;
   justify-content: center;
   text-align: center;
-  width: 20%;
+  width: 40px;
 `;
 
 export const editProfPhoto = css`
   border-radius: 50%;
   width: 100%;
   height: 100%;
+  border: 1px solid white;
 `;
 
 export const editNameSurname = css`
@@ -398,6 +512,11 @@ export const editNameSurname = css`
   justify-content: center;
   align-items: center;
   color: white;
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    font-size: 14px;
+  }
 `;
 
 export const dateEdit = css`
@@ -407,4 +526,40 @@ export const dateEdit = css`
   justify-content: center;
   align-items: center;
   color: gray;
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    display: none;
+  }
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    display: none;
+  }
+`;
+
+export const userRightDivBottom = css`
+  width: 70%;
+  height: 20%;
+`;
+
+export const editRightPhoto = css`
+  width: 100%;
+  height: 100%;
+`;
+
+export const infiniteScroll = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    width: 100%;
+  }
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 100%;
+  }
 `;

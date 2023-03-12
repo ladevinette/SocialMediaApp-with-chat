@@ -1,23 +1,21 @@
 import { useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import "../messaging_init_in_sw";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { HomePage } from "../components/HomePage";
+import Spinner from "../components/Spinner/Spinner";
 
 const HomePageContainer = () => {
-  const auth = getAuth();
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(getAuth());
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       router.push("/login");
-      return;
     }
-  }, [router, user]);
+  }, [user, loading, router]);
 
-  return <HomePage />;
+  return user ? <HomePage /> : <Spinner />;
 };
 
 export default HomePageContainer;

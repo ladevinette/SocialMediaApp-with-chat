@@ -21,6 +21,11 @@ export const editInput = css`
   color: #2f2d52;
   font-size: 18px;
   background-color: transparent;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 15px;
+  }
 `;
 
 export const send = css`

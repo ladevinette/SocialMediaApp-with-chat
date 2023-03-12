@@ -1,14 +1,6 @@
 import Image from "next/image";
-import React, {
-  FormEventHandler,
-  useContext,
-  useState,
-  useEffect,
-} from "react";
-import * as styles from "./ChatInput.style";
-import photo from "../../../assets/svg/photo-4-svgrepo-com.svg";
+import React, { useContext, useState, useEffect } from "react";
 import { ChatContext } from "../../../context/ChatContext";
-import "react-toastify/dist/ReactToastify.css";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { InputChangeEventHandler } from "../../../typing";
 import {
@@ -26,18 +18,14 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { saveMessagingDeviceToken } from "../../../messaging_init_in_sw";
-import { user } from "../ChatNavbar/ChatNavbar.styles";
 import { toast, ToastContainer } from "react-toastify";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import { getUsers } from "../../../features/users/usersSlice";
-import io, { Socket } from "socket.io-client";
-
-// type notification = {
-//   senderName: string;
-//   reciveName: string;
-// };
+import { useChatSocket } from "../../../hooks/useChatSocket";
+import "react-toastify/dist/ReactToastify.css";
+import * as styles from "./ChatInput.style";
+import photo from "../../../assets/svg/photo-4-svgrepo-com.svg";
 
 const ChatInput = () => {
   const { data } = useContext(ChatContext);
@@ -45,40 +33,35 @@ const ChatInput = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState<File[] | null>(null);
   const [progressUpload, setProgressUpload] = useState(0);
-  const [messageImg, setMessageImg] = useState("");
   const auth = getAuth();
-  const [user, loading, error] = useAuthState(auth);
-  const [socket, setSocket] = useState<any | null>(null);
-  // const [notification, setNotification] = useState<notification[]>([]);
+  const [user] = useAuthState(auth);
+  const { socket, connected, error: socketError } = useChatSocket();
 
-  // useEffect(() => {
-  //   const socket = io("http://localhost:5000");
-  //   console.log(
-  //     socket.on("firstEvent", (msg) => {
-  //       console.log(msg);
-  //     })
-  //   );
-  // }, []);
+  useEffect(() => {
+    if (loggedUser) {
+      const socketData = {
+        name: loggedUser.name,
+        surname: loggedUser.surname,
+        id: loggedUser.id,
+      };
+      socket.emit("newUser", socketData);
+    }
+  }, [socket, loggedUser]);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     socket?.emit("newUser,", user.displayName);
-  //   }
-  // }, [socket, user]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     socket?.emit("newUser,", user.displayName);
-  //   }
-  // }, [socket, user]);
-
-  // useEffect(() => {
-  //   socket?.on("getNotification", (element: notification) => {
-  //     setNotification((prev) => [...prev, element]);
-  //   });
-  // }, [socket]);
-
-  // console.log(notification);
+  useEffect(() => {
+    socket.on("getNotification", (data) => {
+      toast("🦄 You have got a new message!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    });
+  }, [socket]);
 
   const onChange: InputChangeEventHandler = (e) => {
     setText(e.target.value);
@@ -96,19 +79,18 @@ const ChatInput = () => {
     }
   };
 
-  // const handleNotification = () => {
-  //   socket?.emit("sendNotification", {
-  //     senderName: user?.displayName,
-  //     reciverName: data?.user?.name,
-  //   });
-  //   console.log(user?.displayName);
-  // };
+  const handleNotification = () => {
+    if (data && user && data.user) {
+      socket.emit("sendNotification", {
+        reciverId: data.user.id,
+      });
+    }
+  };
 
   const handleSend = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    console.log("chat input:", data?.chatId);
-    console.log(img);
-    if (img && data && loggedUser) {
+
+    if (img && data && loggedUser && data.user.id) {
       const storeImage = async (image: File) => {
         return new Promise<string>((resolve, reject) => {
           const storage = getStorage();
@@ -166,7 +148,7 @@ const ChatInput = () => {
         });
       }
     } else {
-      if (data?.user && data.chatId && loggedUser && user) {
+      if (data?.user && data.chatId && loggedUser && user && text) {
         await updateDoc(doc(db, "chats", data.chatId), {
           messages: arrayUnion({
             id: uuidv4(),
@@ -175,15 +157,6 @@ const ChatInput = () => {
             date: Timestamp.now(),
           }),
         });
-
-        const show = async () => {
-          if (user.uid === data.user?.id) {
-            console.log("siema");
-            toast.success("You have new message!");
-          }
-        };
-
-        await show();
 
         await updateDoc(doc(db, "userChats", loggedUser.id), {
           [data.chatId + ".lastMessage"]: {
@@ -200,10 +173,9 @@ const ChatInput = () => {
         });
       }
     }
-    // handleNotification();
+    handleNotification();
     setText("");
     setImg(null);
-    toast.success("siema");
   };
 
   return (

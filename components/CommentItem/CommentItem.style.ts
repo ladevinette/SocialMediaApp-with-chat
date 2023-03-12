@@ -11,11 +11,13 @@ export const commentWrapper = css`
   display: flex;
   position: relative;
   flex-direction: row;
-  background-color: rgb(207, 159, 255);
-  width: 70%;
   gap: 10px;
-  border-radius: 30px;
-  padding: 1%;
+  width: 90%;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const photoContainer = css`
@@ -23,17 +25,43 @@ export const photoContainer = css`
   justify-content: center;
   align-items: center;
   margin-left: 5%;
-  width: 15%;
-`;
+  width: 40px;
+  height: 40px;
 
-export const contentContainer = css`
-  width: 80%;
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    width: 60px;
+    height: 60px;
+  }
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    width: 55px;
+    height: 55px;
+  }
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 export const commentPhotoEdit = css`
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   border-radius: 100%;
+  border: 2px solid white;
+`;
+
+export const contentContainer = css`
+  max-width: 80%;
+  max-height: max-content;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    max-width: 70%;
+  }
 `;
 
 export const nameSurname = css`
@@ -41,27 +69,41 @@ export const nameSurname = css`
   font-weight: 700;
   font-size: 15px;
   font-weight: 500;
+
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    font-size: 18px;
+  }
 `;
 
 export const commentContentText = css`
   display: flex;
-  text-align: center;
   align-items: center;
-  width: 90%;
-  height: 40px;
-  background-color: white;
+  justify-content: flex-start;
   padding: 1%;
+  padding-left: 2%;
+  padding-right: 10%;
+  background-color: white;
   border-radius: 20px;
-  border: 1px solid black;
   color: black;
   font-size: 14px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  min-height: 40px;
+  border: none;
+  font-weight: 500;
+
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    font-size: 18px;
+  }
 `;
 
 export const deleteButton = css`
   border: none;
   background: none;
-  position: absolute;
+  /* position: absolute;
   right: 10px;
-  top: 5px;
+  top: 5px; */
   cursor: pointer;
 `;

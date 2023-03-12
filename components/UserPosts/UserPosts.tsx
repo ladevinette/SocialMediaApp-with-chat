@@ -20,6 +20,6 @@ export function UserPosts({ posts }: Props) {
       </div>
     );
   } else {
-    return <div>This user havent upload any photo yet</div>;
+    return <div css={styles.info}>This user havent upload any photo yet</div>;
   }
 }

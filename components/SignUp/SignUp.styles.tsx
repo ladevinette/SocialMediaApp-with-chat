@@ -1,10 +1,10 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-  height: 100vh;
+  height: calc(100vh - 70px);
   width: 100vw;
   display: flex;
-  background-color: white;
+  background-color: rgb(203, 195, 227);
   justify-content: center;
   align-items: center;
 `;
@@ -16,6 +16,10 @@ export const wrapper = css`
   border: 1px solid black;
   margin: auto;
   width: 40%;
+  background-color: white;
+  border-radius: 24px;
+  box-shadow: 0 2px 15px rgb(0 0 0 / 68%);
+  border: none;
 
   //md-size
   @media (min-width: 900px) and (max-width: 1200px) {
@@ -29,7 +33,7 @@ export const wrapper = css`
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
-    width: 80%;
+    width: 90%;
   }
 `;
 
@@ -40,12 +44,12 @@ export const header = css`
   padding: 2%;
   align-items: center;
   width: 100%;
-  background-color: rgba(45, 85, 255);
 `;
 
 export const headerText = css`
   font-size: 35px;
   font-weight: 700;
+  color: gray;
 `;
 
 export const editForm = css`
@@ -58,6 +62,11 @@ export const editForm = css`
 export const formContainer = css`
   padding: 2%;
   width: 90%;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const formWrapper = css`
@@ -73,27 +82,56 @@ export const firstRowInputContainer = css`
   width: 80%;
   flex-direction: row;
   justify-content: space-between;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const nameInput = css`
-  color: black;
-  background-color: rgb(120, 120, 120, 0.1);
+  background-color: transparent;
   height: 50px;
   width: 48%;
+  border: none;
+  border-bottom: 2px solid rgb(207, 159, 255);
+  outline: none;
+  color: black;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 12px;
+  }
 `;
 
 export const surnameInput = css`
-  color: black;
-  background-color: rgb(120, 120, 120, 0.1);
+  background-color: transparent;
   height: 50px;
   width: 48%;
+  border: none;
+  border-bottom: 2px solid rgb(207, 159, 255);
+  outline: none;
+  color: black;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    font-size: 12px;
+  }
 `;
 
 export const editInput = css`
-  color: black;
-  background-color: rgb(120, 120, 120, 0.1);
+  background-color: transparent;
   height: 50px;
+  border: none;
+  border-bottom: 2px solid rgb(207, 159, 255);
+  outline: none;
   width: 80%;
+  color: black;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const secondRowInputContainer = css`
@@ -102,14 +140,26 @@ export const secondRowInputContainer = css`
   justify-content: center;
   width: 100%;
   position: relative;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const passwordInput = css`
-  color: black;
-  background-color: rgb(120, 120, 120, 0.1);
-  position: relative;
+  background-color: transparent;
   height: 50px;
+  border: none;
+  border-bottom: 2px solid rgb(207, 159, 255);
+  outline: none;
   width: 80%;
+  color: black;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const visibilityIcon = css`
@@ -131,7 +181,7 @@ export const visibilityIcon = css`
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
-    right: 44px;
+    right: 5px;
   }
 `;
 
@@ -139,18 +189,29 @@ export const dateContainer = css`
   display: flex;
   flex-direction: column;
   width: 80%;
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const dateHeader = css`
   color: black;
-  background-color: rgba(45, 85, 255, 0.9);
+  background-color: rgb(207, 159, 255);
+  border-radius: 15px;
+  padding: 1%;
+  color: white;
 `;
 
 export const editDateInput = css`
-  background-color: rgb(120, 120, 120, 0.1);
-  color: black;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid rgb(207, 159, 255);
+  outline: none;
   height: 50px;
   width: 100%;
+  color: gray;
 `;
 
 export const bottomContainer = css`
@@ -163,9 +224,19 @@ export const bottomContainer = css`
 `;
 
 export const signInButton = css`
-  background-color: rgba(45, 85, 255, 0.9);
+  background-color: rgb(207, 159, 255);
   width: 80%;
   padding: 3%;
+  border: none;
+  border-radius: 25px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
 `;
 
 export const buttonText = css`
@@ -179,6 +250,6 @@ export const insteadDiv = css`
 `;
 
 export const editLink = css`
-  color: rgba(45, 85, 255, 0.9);
+  color: rgb(207, 159, 255);
   font-weight: 700;
 `;

@@ -4,7 +4,7 @@ export const container = css`
   display: flex;
   justify-content: center;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 70px);
   background-color: rgb(203, 195, 227);
 
   //sm-size
@@ -31,25 +31,24 @@ export const leftContainer = css`
   width: 25%;
   //lg-size
   @media (min-width: 1200px) and (max-width: 1536px) {
-    width: 30%;
+    width: 25%;
   }
 
   //md-size
   @media (min-width: 900px) and (max-width: 1200px) {
-    width: 40%;
+    width: 35%;
   }
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
-    width: 90%;
+    width: 80%;
     height: 18%;
   }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     width: 90%;
-    height: 15%;
-    /* order: 1; */
+    height: 19%;
   }
 `;
 
@@ -66,7 +65,7 @@ export const leftContainerWrapper = css`
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
     height: 100%;
-    width: 80%;
+    width: 100%;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -76,7 +75,7 @@ export const leftContainerWrapper = css`
   @media (min-width: 0px) and (max-width: 600px) {
     flex-direction: row;
     height: 100%;
-    width: 80%;
+    width: 100%;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -106,14 +105,14 @@ export const photoContainer = css`
   width: 100%;
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
-    width: 50%;
-    height: 100%;
+    width: 250px;
+    height: 150px;
   }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
-    width: 50%;
-    height: 100%;
+    width: 230px;
+    height: 130px;
   }
 `;
 
@@ -183,7 +182,8 @@ export const centerContainer = css`
   @media (min-width: 0px) and (max-width: 600px) {
     width: 90%;
     align-items: baseline;
-    padding: 5%;
+    margin-top: 5%;
+    height: 80%;
   }
 `;
 
@@ -195,6 +195,16 @@ export const centerWrapper = css`
   height: 85%;
   background-color: white;
   border-radius: 20px;
+
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    width: 90%;
+  }
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    width: 90%;
+  }
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
@@ -246,21 +256,45 @@ export const centerProfileContainer = css`
 
 export const centerProfilePictureContainer = css`
   padding: 2%;
-  width: 80%;
-  height: 30%;
+  width: 190px;
+  height: 190px;
+
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    width: 150px;
+    height: 150px;
+  }
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    width: 130px;
+    height: 130px;
+  }
+
+  //sm-size
+  @media (min-width: 600px) and (max-width: 900px) {
+    width: 140px;
+    height: 140px;
+  }
+
+  //xs-size
+  @media (min-width: 0px) and (max-width: 600px) {
+    width: 110px;
+    height: 110px;
+  }
 `;
 
 export const editCenterProfilePicture = css`
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 100%;
+  border: 2px solid white;
 `;
 
 export const centerUploadDiv = css`
   padding: 1%;
   display: flex;
   flex-direction: column;
-  /* background-color: red; */
 `;
 
 export const centerUploadDivTop = css`
@@ -293,7 +327,6 @@ export const contentContainer = css`
 export const contentWrapper = css`
   width: 100%;
   height: 100%;
-  /* background-color: red; */
 `;
 
 export const form = css`
@@ -303,16 +336,28 @@ export const form = css`
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* background-color: blue; */
+  height: 100%;
+
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    height: 100%;
+  }
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    height: 100%;
+  }
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
     gap: 5px;
+    height: 100%;
   }
 
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     gap: 5px;
+    height: 100%;
   }
 `;
 
@@ -322,11 +367,20 @@ export const divInputWrapper = css`
   justify-content: center;
   align-items: center;
   width: 100%;
-  border: 3px solid rgb(207, 159, 255);
   border-radius: 20px;
   width: 80%;
   padding: 2%;
-  gap: 10px;
+  gap: 5px;
+
+  //lg-size
+  @media (min-width: 1200px) and (max-width: 1536px) {
+    width: 100%;
+  }
+
+  //md-size
+  @media (min-width: 900px) and (max-width: 1200px) {
+    width: 100%;
+  }
 
   //sm-size
   @media (min-width: 600px) and (max-width: 900px) {
@@ -336,6 +390,7 @@ export const divInputWrapper = css`
   //xs-size
   @media (min-width: 0px) and (max-width: 600px) {
     height: max-content;
+    width: 100%;
   }
 `;
 
@@ -393,8 +448,10 @@ export const editInputImageWithoutRadius = css`
 
 export const editInput = css`
   color: black;
-  background-color: rgb(207, 159, 255, 0.7);
-  border-radius: 15px;
+  border: none;
+  background: none;
+  border-bottom: 2px solid rgb(207, 159, 255);
+  outline: none;
   height: 50px;
   width: 100%;
 `;

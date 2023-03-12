@@ -1,5 +1,4 @@
 import React from "react";
-import ChatComponent from "../ChatComponent/ChatComponent";
 import ChatNavbar from "../ChatNavbar/ChatNavbar";
 import ChatsComponent from "../ChatsComponent/ChatsComponent";
 import ChatSearch from "../ChatSearch/ChatSearch";

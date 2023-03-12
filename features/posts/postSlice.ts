@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { DocumentData } from "firebase/firestore";
 import {
   Comment,
   CommentData,
   commentDeleteData,
+  fetchMoreUserPostTypes,
   formPostData,
   Post,
   updateUserType,
@@ -48,6 +50,32 @@ export const getPosts = createAsyncThunk(
     try {
       return await postsService.getPosts();
     } catch (error: any) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+//fetch more Posts
+export const fetchMorePosts = createAsyncThunk(
+  "post/fetchMorePosts",
+  async (lastVisble: DocumentData, thunkAPI) => {
+    try {
+      return await postsService.fetchMorePosts(lastVisble);
+    } catch (error: any) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+//fetch more User Posts
+export const fetchMoreUserPosts = createAsyncThunk(
+  "post/fetchMoreUserPosts",
+  async (data: fetchMoreUserPostTypes, thunkAPI) => {
+    try {
+      return await postsService.fetchMoreUserPosts(data);
+    } catch (error: any) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -228,6 +256,36 @@ export const postSlice = createSlice({
         }
       })
       .addCase(deleteComment.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchMorePosts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchMorePosts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        if (action.payload) {
+          const array = [...state.posts];
+          const newArray = array.concat(action.payload);
+          state.posts = newArray;
+        }
+      })
+      .addCase(fetchMorePosts.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchMoreUserPosts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchMoreUserPosts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        if (action.payload) {
+          const array = [...state.posts];
+          const newArray = array.concat(action.payload);
+          state.posts = newArray;
+        }
+      })
+      .addCase(fetchMoreUserPosts.rejected, (state, action) => {
         state.isLoading = false;
       });
   },

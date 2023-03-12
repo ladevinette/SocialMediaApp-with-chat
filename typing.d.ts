@@ -1,4 +1,4 @@
-import { FieldValue, Timestamp } from "firebase/firestore";
+import { DocumentData, FieldValue, Timestamp } from "firebase/firestore";
 import React from "react";
 
 type User = {
@@ -108,6 +108,11 @@ type userInfo = {
 type commentDeleteData = {
   commentId: string;
   postId: string;
+};
+
+type fetchMoreUserPostTypes = {
+  lastVisible: DocumentData;
+  userId: string;
 };
 
 export type InputChangeEventHandler =

@@ -1,37 +1,7 @@
-import { getAuth, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
-import {
-  InputChangeEventHandler,
-  Post,
-  updateUserType,
-  User,
-} from "../../typing";
-import { css } from "@emotion/css";
-import Image from "next/image";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { InputChangeEventHandler, User } from "../../typing";
 import { updateUserData } from "../../features/users/usersSlice";
-import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
-import { current } from "@reduxjs/toolkit";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  limit,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
-import app, { db } from "../../firebase-config";
-import { toast } from "react-toastify";
-import faceBookIcon from "../../assets/svg/facebook-color-svgrepo-com.svg";
-import beRealIcon from "../../assets/svg/bereal-icon.svg";
-import instagramIcon from "../../assets/svg/instagram-1-svgrepo-com.svg";
-import snapchatIcon from "../../assets/svg/snapchat-svgrepo-com.svg";
-import penIcon from "../../assets/svg/pen-tool-svgrepo-com.svg";
-import gameIcon from "../../assets/svg/game-svgrepo-com.svg";
-import userIcon from "../../assets/svg/user-svgrepo-com.svg";
-import flagIcon from "../../assets/svg/flag-svgrepo-com.svg";
+import { useAppDispatch } from "../../hooks/useTypedSelector";
 import editYourProfile from "../../assets/pageImages/Construction worker-amico.png";
 import {
   getStorage,
@@ -40,8 +10,17 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
-import * as styles from "./EditProfile.style";
 import Link from "next/link";
+import faceBookIcon from "../../assets/svg/facebook-color-svgrepo-com.svg";
+import beRealIcon from "../../assets/svg/bereal-icon.svg";
+import instagramIcon from "../../assets/svg/instagram-1-svgrepo-com.svg";
+import snapchatIcon from "../../assets/svg/snapchat-svgrepo-com.svg";
+import penIcon from "../../assets/svg/pen-tool-svgrepo-com.svg";
+import gameIcon from "../../assets/svg/game-svgrepo-com.svg";
+import userIcon from "../../assets/svg/user-svgrepo-com.svg";
+import flagIcon from "../../assets/svg/flag-svgrepo-com.svg";
+import * as styles from "./EditProfile.style";
+import Image from "next/image";
 
 type Props = {
   user: User;
@@ -50,7 +29,6 @@ type Props = {
 function EditProfilePage({ user }: Props) {
   const dispatch = useAppDispatch();
   const [imageFile, setImageFile] = useState<File[]>([]);
-  const [downloadURL, setDownloadURL] = useState("");
   const [progressUpload, setProgressUpload] = useState(0);
   const [formData, setFormData] = useState({
     name: user.name,
@@ -227,7 +205,7 @@ function EditProfilePage({ user }: Props) {
             <div css={styles.contentWrapper}>
               <form css={styles.form} onSubmit={onSubmit}>
                 <div css={styles.divInputWrapper}>
-                  <p css={styles.inputHeader}>USER INFO</p>
+                  <p css={styles.inputHeader}>EDIT USER INFO</p>
                   <div css={styles.inputContainer}>
                     <div css={styles.inputPhotoContainer}>
                       <Image
@@ -287,7 +265,7 @@ function EditProfilePage({ user }: Props) {
                 </div>
 
                 <div css={styles.divInputWrapper}>
-                  <p css={styles.inputHeader}>SOCIALS</p>
+                  <p css={styles.inputHeader}>EDIT SOCIALS</p>
                   <div css={styles.inputContainer}>
                     <div css={styles.inputPhotoContainer}>
                       <Image
@@ -366,7 +344,7 @@ function EditProfilePage({ user }: Props) {
                 </div>
 
                 <div css={styles.divInputWrapper}>
-                  <p css={styles.inputHeader}>ABOUT YOU & HOBBIES</p>
+                  <p css={styles.inputHeader}>EDIT ABOUT YOU & HOBBIES</p>
                   <div css={styles.inputContainer}>
                     <div css={styles.inputPhotoContainer}>
                       <Image
@@ -414,8 +392,6 @@ function EditProfilePage({ user }: Props) {
           </div>
         </div>
       </div>
-
-      {/* <div css={styles.rightContainer}>right</div> */}
     </div>
   );
 }

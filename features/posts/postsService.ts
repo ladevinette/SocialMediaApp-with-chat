@@ -1,14 +1,12 @@
-import { getAuth } from "firebase/auth";
 import {
   Comment,
   CommentData,
   commentDeleteData,
+  fetchMoreUserPostTypes,
   formPostData,
   Post,
-  User,
 } from "../../typing";
 import {
-  addDoc,
   arrayUnion,
   collection,
   deleteDoc,
@@ -17,20 +15,15 @@ import {
   getDoc,
   getDocs,
   limit,
-  onSnapshot,
   orderBy,
   query,
-  QuerySnapshot,
-  serverTimestamp,
   setDoc,
-  Timestamp,
+  startAfter,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase-config";
-import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 // Create new post
 const createPost = async (formData: formPostData) => {
@@ -74,37 +67,7 @@ const createPost = async (formData: formPostData) => {
 const getPosts = async () => {
   const listingsRef = collection(db, "posts");
 
-  const q = query(listingsRef, orderBy("timestamp", "desc"));
-
-  const querrySnap = await getDocs(q);
-
-  let listings: Post[] = [];
-
-  querrySnap.forEach((doc) => {
-    const postData: Post = {
-      id: doc.data().id,
-      photo: doc.data().photo,
-      description: doc.data().description,
-      timestamp: doc.data().timestamp,
-      author: {
-        authorId: doc.data().author.authorId,
-        name: doc.data().author.name,
-        surname: doc.data().author.surname,
-        profileImg: doc.data().author.profileImg,
-      },
-      comments: null,
-    };
-
-    listings.push(postData);
-  });
-
-  return listings;
-};
-
-const getUserPosts = async (id: string) => {
-  const listingsRef = collection(db, "posts");
-
-  const q = query(listingsRef, where("author.authorId", "==", id));
+  const q = query(listingsRef, orderBy("timestamp", "desc"), limit(2));
 
   const querrySnap = await getDocs(q);
 
@@ -123,11 +86,111 @@ const getUserPosts = async (id: string) => {
         profileImg: doc.data().author.profileImg,
       },
       comments: doc.data().comments,
-      // do zmiany pozniej
     };
 
     listings.push(postData);
   });
+
+  return listings;
+};
+
+const fetchMorePosts = async (lastVisble: DocumentData) => {
+  const listingsRef = collection(db, "posts");
+
+  const q = query(
+    listingsRef,
+    orderBy("timestamp", "desc"),
+    startAfter(lastVisble),
+    limit(2)
+  );
+
+  const querrySnap = await getDocs(q);
+
+  let listings: Post[] = [];
+
+  querrySnap.forEach((doc) => {
+    const postData: Post = {
+      id: doc.data().id,
+      photo: doc.data().photo,
+      description: doc.data().description,
+      timestamp: doc.data().timestamp,
+      author: {
+        authorId: doc.data().author.authorId,
+        name: doc.data().author.name,
+        surname: doc.data().author.surname,
+        profileImg: doc.data().author.profileImg,
+      },
+      comments: doc.data().comments,
+    };
+
+    listings.push(postData);
+  });
+
+  return listings;
+};
+
+//GET USER ALL POSTS
+const getUserPosts = async (id: string) => {
+  const listingsRef = collection(db, "posts");
+
+  const q = query(listingsRef, where("author.authorId", "==", id), limit(2));
+
+  const querrySnap = await getDocs(q);
+
+  let listings: Post[] = [];
+
+  querrySnap.forEach((doc) => {
+    const postData: Post = {
+      id: doc.data().id,
+      photo: doc.data().photo,
+      description: doc.data().description,
+      timestamp: doc.data().timestamp,
+      author: {
+        authorId: doc.data().author.authorId,
+        name: doc.data().author.name,
+        surname: doc.data().author.surname,
+        profileImg: doc.data().author.profileImg,
+      },
+      comments: doc.data().comments,
+    };
+    listings.push(postData);
+  });
+  return listings;
+};
+
+//FETCH MORE USER POSTS
+const fetchMoreUserPosts = async (data: fetchMoreUserPostTypes) => {
+  const listingsRef = collection(db, "posts");
+
+  const q = query(
+    listingsRef,
+    where("author.authorId", "==", data.userId),
+    startAfter(data.lastVisible),
+    limit(2)
+  );
+
+  const querrySnap = await getDocs(q);
+
+  let listings: Post[] = [];
+
+  querrySnap.forEach((doc) => {
+    const postData: Post = {
+      id: doc.data().id,
+      photo: doc.data().photo,
+      description: doc.data().description,
+      timestamp: doc.data().timestamp,
+      author: {
+        authorId: doc.data().author.authorId,
+        name: doc.data().author.name,
+        surname: doc.data().author.surname,
+        profileImg: doc.data().author.profileImg,
+      },
+      comments: doc.data().comments,
+    };
+
+    listings.push(postData);
+  });
+
   return listings;
 };
 
@@ -148,8 +211,6 @@ const createNewComment = async (commentData: CommentData) => {
       commentContent: commentData.commentContent,
     }),
   });
-
-  //trzeba tutaj dodac cale infor odnosnie komentarzy a nie tylko content!
 
   const comment: Comment = {
     commentId: id,
@@ -264,5 +325,7 @@ const postsService = {
   deleteComment,
   createNewComment,
   getPosts,
+  fetchMorePosts,
+  fetchMoreUserPosts,
 };
 export default postsService;
