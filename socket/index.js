@@ -1,11 +1,17 @@
 import { Server } from "socket.io";
 
+// const io = new Server({
+//   cors: {
+//     origin: [
+//       "https://final-project-bs-33.vercel.app/homepage",
+//       "https://final-project-bs-33.vercel.app/chat",
+//     ],
+//   },
+// });
+
 const io = new Server({
   cors: {
-    origin: [
-      "https://final-project-bs-33.vercel.app/homepage",
-      "https://final-project-bs-33.vercel.app/chat",
-    ],
+    origin: "http://localhost:3000",
   },
 });
 

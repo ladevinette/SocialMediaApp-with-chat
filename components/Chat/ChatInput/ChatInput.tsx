@@ -37,31 +37,31 @@ const ChatInput = () => {
   const [user] = useAuthState(auth);
   const { socket, connected, error: socketError } = useChatSocket();
 
-  useEffect(() => {
-    if (loggedUser) {
-      const socketData = {
-        name: loggedUser.name,
-        surname: loggedUser.surname,
-        id: loggedUser.id,
-      };
-      socket.emit("newUser", socketData);
-    }
-  }, [socket, loggedUser]);
+  // useEffect(() => {
+  //   if (loggedUser) {
+  //     const socketData = {
+  //       name: loggedUser.name,
+  //       surname: loggedUser.surname,
+  //       id: loggedUser.id,
+  //     };
+  //     socket.emit("newUser", socketData);
+  //   }
+  // }, [socket, loggedUser]);
 
-  useEffect(() => {
-    socket.on("getNotification", (data) => {
-      toast("🦄 You have got a new message!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   socket.on("getNotification", (data) => {
+  //     toast("🦄 You have got a new message!", {
+  //       position: "top-right",
+  //       autoClose: 5000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //   });
+  // }, [socket]);
 
   const onChange: InputChangeEventHandler = (e) => {
     setText(e.target.value);
