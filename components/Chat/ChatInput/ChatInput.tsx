@@ -35,7 +35,7 @@ const ChatInput = () => {
   const [progressUpload, setProgressUpload] = useState(0);
   const auth = getAuth();
   const [user] = useAuthState(auth);
-  const { socket, connected, error: socketError } = useChatSocket();
+  // const { socket, connected, error: socketError } = useChatSocket();
 
   // useEffect(() => {
   //   if (loggedUser) {
@@ -79,13 +79,13 @@ const ChatInput = () => {
     }
   };
 
-  const handleNotification = () => {
-    if (data && user && data.user) {
-      socket.emit("sendNotification", {
-        reciverId: data.user.id,
-      });
-    }
-  };
+  // const handleNotification = () => {
+  //   if (data && user && data.user) {
+  //     socket.emit("sendNotification", {
+  //       reciverId: data.user.id,
+  //     });
+  //   }
+  // };
 
   const handleSend = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
@@ -173,7 +173,7 @@ const ChatInput = () => {
         });
       }
     }
-    handleNotification();
+    // handleNotification();
     setText("");
     setImg(null);
   };
