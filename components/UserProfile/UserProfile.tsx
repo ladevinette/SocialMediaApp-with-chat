@@ -20,7 +20,7 @@ type Props = {
 };
 
 function UserProfile({ userId }: Props) {
-  const { loggedUser, isLoading } = useTypedSelector((state) => state.users);
+  const { userProfile, isLoading } = useTypedSelector((state) => state.users);
   const { posts } = useTypedSelector((state) => state.posts);
   const dispatch = useAppDispatch();
   const [active, setActive] = useState("user-info");
@@ -55,7 +55,7 @@ function UserProfile({ userId }: Props) {
     await dispatch(fetchMoreUserPosts(data));
   };
 
-  if (userId && loggedUser) {
+  if (userId && userProfile) {
     return (
       <div css={styles.container}>
         <div css={styles.leftContainer}>
@@ -64,7 +64,7 @@ function UserProfile({ userId }: Props) {
               <div css={styles.userProfilePhotoContainer}>
                 <Image
                   css={styles.editUserProfilePhoto}
-                  src={loggedUser.profileImg}
+                  src={userProfile.profileImg}
                   height={100}
                   width={100}
                   alt="profileImage"
@@ -75,15 +75,15 @@ function UserProfile({ userId }: Props) {
             <div css={styles.userDataWrapper}>
               <div css={styles.userDataContainer}>
                 <p css={styles.nameAndSurname}>
-                  {loggedUser.name} {loggedUser.surname}
+                  {userProfile.name} {userProfile.surname}
                 </p>
 
-                <p css={styles.country}>{loggedUser.nationality}</p>
+                <p css={styles.country}>{userProfile.nationality}</p>
               </div>
               <div>
                 <p css={styles.date}>
                   JOINED AT:{" "}
-                  {loggedUser.timestamp.toDate().toLocaleDateString()}
+                  {userProfile.timestamp.toDate().toLocaleDateString()}
                 </p>
               </div>
             </div>
@@ -99,7 +99,7 @@ function UserProfile({ userId }: Props) {
                   }}
                   css={styles.showUserInfoBtn}
                 >
-                  {loggedUser.name.toUpperCase()} INFO
+                  {userProfile.name.toUpperCase()} INFO
                 </button>
                 <button
                   onClick={() => {
@@ -112,7 +112,7 @@ function UserProfile({ userId }: Props) {
               </div>
             </div>
             <div css={styles.dynamicBottomContainer}>
-              {active === "user-info" && <UserInfo user={loggedUser} />}
+              {active === "user-info" && <UserInfo user={userProfile} />}
               {active === "user-post" && posts && (
                 <div id="my-container" css={styles.postsContainer}>
                   <InfiniteScroll

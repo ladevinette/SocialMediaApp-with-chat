@@ -7,14 +7,14 @@ import { getUser } from "../features/users/usersSlice";
 import EditProfilePage from "../components/EditProfile/EditProfile";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Spinner from "../components/Spinner/Spinner";
+import { User } from "../typing";
 
 function Profile() {
   const auth = getAuth();
   const router = useRouter();
-  const { loggedIn, checkingStatus } = useAuthStatus();
-  const [active, setActive] = useState("my-profile");
-  const [user, loading, error] = useAuthState(auth);
-  const { loggedUser, isLoading } = useTypedSelector((state) => state.users);
+  const [user, loading] = useAuthState(auth);
+  const { loggedUser } = useTypedSelector((state) => state.users);
+  const [editUser, setEditUser] = useState<User>();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -26,6 +26,7 @@ function Profile() {
   useEffect(() => {
     if (user) {
       dispatch(getUser(user.uid));
+      console.log("getting user");
     }
   }, [user, dispatch]);
 

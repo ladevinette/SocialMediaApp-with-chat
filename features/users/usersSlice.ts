@@ -3,6 +3,7 @@ import { updateUserType, User } from "../../typing";
 import usersService from "./usersService";
 
 type State = {
+  userProfile: User | null;
   loggedUser: User | null;
   users: User[] | null;
   error: null | string;
@@ -11,6 +12,7 @@ type State = {
 };
 
 const initialState: State = {
+  userProfile: null,
   loggedUser: null,
   users: null,
   error: null,
@@ -92,7 +94,7 @@ export const usersSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         if (action.payload) {
-          state.loggedUser = action.payload;
+          state.userProfile = action.payload;
         }
       })
       .addCase(getUserProfile.rejected, (state, action) => {
