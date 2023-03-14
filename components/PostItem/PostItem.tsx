@@ -50,18 +50,15 @@ export function PostItem({ post }: Props) {
     const addComment = (e: React.FormEvent<EventTarget>) => {
       e.preventDefault();
       dispatch(createNewComment(commentData));
-      console.log("siema");
       setComment("");
     };
 
     const openModal = () => {
-      console.log("modal is open");
       setModalIsOpen(true);
       dispatch(getAllPostComments(post.id));
     };
 
     const closeModal = () => {
-      console.log("modal is closed");
       setModalIsOpen(false);
     };
 
